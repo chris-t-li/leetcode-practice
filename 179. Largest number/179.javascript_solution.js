@@ -1,26 +1,20 @@
-const largestNumber = (nums) => {
 
-
-};
-
-largestNumber([10, 2]);
-largestNumber([3, 30, 34, 5, 9]);
-
-const partition = (array, low, high) => {
-    const pivot = array[high];
-    let pivotIndex = high;
-    let i = low;
-
-    while (i < pivotIndex) {
-        if (array[i] <= pivot) {
-            ++i;
-            continue;
+var largestNumber = function (nums) {
+    // insertion sort
+    for (let i = 0; i < nums.length; i++) {
+        for (let j = 0; j <= i; j++) {
+            if ("" + nums[i] + nums[j] > "" + nums[j] + nums[i]) {
+                [nums[i], nums[j]] = [nums[j], nums[i]]
+            }
         }
-        [array[i], array[pivotIndex - 1]] = [array[pivotIndex - 1], array[i]];
-        [array[pivotIndex], array[pivotIndex - 1]] = [array[pivotIndex - 1], array[pivotIndex]];
-        --pivotIndex;
     }
-    return pivotIndex;
-}
-
-console.log(partition([5, 4, 3, 2, 1], 0, 4))
+    // dealing with edge case if there are leading zeros
+    if (nums[0] === 0) {
+        let ind = 0;
+        while (nums[ind] === 0) {
+            ind++;
+        }
+        return nums.slice(ind - 1).join("");
+    }
+    return nums.join("");
+};
